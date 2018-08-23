@@ -1,0 +1,12 @@
+//From cat unistd.h
+//syscall numbers for syscalls used in tcpbind
+
+#define __NR_socketcall			(__NR_SYSCALL_BASE+102)
+#define __NR_socket			(__NR_SYSCALL_BASE+281)
+#define __NR_socketpair			(__NR_SYSCALL_BASE+288)
+
+#define __NR_bind			(__NR_SYSCALL_BASE+282)
+#define __NR_mbind			(__NR_SYSCALL_BASE+319)
+#define __NR_listen			(__NR_SYSCALL_BASE+284)
+#define __NR_dup2			(__NR_SYSCALL_BASE+ 63)
+#define __NR_execve			(__NR_SYSCALL_BASE+ 11)
