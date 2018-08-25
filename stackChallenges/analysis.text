@@ -1,0 +1,42 @@
+//From gdb disassemble main
+//I want to know the exact number of characters needed to modify
+
+<+0>:	push	{r11, lr}
+	//store sp + 4
+   0x00010450 <+4>:	add	r11, sp, #4
+	//move sp down 80 
+   0x00010454 <+8>:	sub	sp, sp, #80	; 0x50
+	//write 0x01 to one word above current sp
+   0x00010458 <+12>:	str	r0, [r11, #-80]	; 0x50
+	//write orginal sp+4 to current sp address
+   0x0001045c <+16>:	str	r1, [r11, #-84]	; 0x54
+	//save 0 to register 3
+   0x00010460 <+20>:	mov	r3, #0
+	//store 0 to orginal sp-4, this is the variable stored
+   0x00010464 <+24>:	str	r3, [r11, #-8]
+	//store original sp+4-72=osp-68=current_sp+12
+   0x00010468 <+28>:	sub	r3, r11, #72	; 0x48
+	//put into r0, which is address for gets call
+   0x0001046c <+32>:	mov	r0, r3
+	//call gets
+   0x00010470 <+36>:	bl	0x102e8
+	//load register from osp-4=currentsp+76
+   0x00010474 <+40>:	ldr	r3, [r11, #-8]
+	//compare input to see if it is changed
+	//to corrupt
+	//gets string needs to cover ground
+	//76 from orginal offset of SP
+	//offset of size of buffer input, which might be a garbage variable?
+   0x00010478 <+44>:	cmp	r3, #0
+   0x0001047c <+48>:	beq	0x1048c <main+64>
+   0x00010480 <+52>:	ldr	r0, [pc, #24]	; 0x104a0 <main+84>
+   0x00010484 <+56>:	bl	0x102f4
+   0x00010488 <+60>:	b	0x10494 <main+72>
+   0x0001048c <+64>:	ldr	r0, [pc, #16]	; 0x104a4 <main+88>
+   0x00010490 <+68>:	bl	0x102f4
+   0x00010494 <+72>:	mov	r0, r3
+   0x00010498 <+76>:	sub	sp, r11, #4
+   0x0001049c <+80>:	pop	{r11, pc}
+   0x000104a0 <+84>:	andeq	r0, r1, r12, lsl r5
+   0x000104a4 <+88>:	andeq	r0, r1, r8, asr #10
+
